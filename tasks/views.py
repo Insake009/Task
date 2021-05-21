@@ -22,7 +22,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     def perform_update(self, serializer):
         instance = self.get_object()
-        self.service_class.check_task_status(instance)
+        self.service_class.check_task_status(model_to_dict(instance))
         self.service_class.save_or_update(serializer)
 
     def perform_destroy(self, instance):
@@ -45,6 +45,7 @@ class TaskViewSet(viewsets.ModelViewSet):
             return self.get_paginated_response(serializer.data)
 
         serializer = self.get_serializer(queryset, many=True)
+
         self.service_class.check_tasks_status(serializer.data)
         print(serializer.data)
         return Response(serializer.data)
