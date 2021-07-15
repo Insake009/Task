@@ -1,9 +1,8 @@
 from datetime import timedelta, datetime
-import dateutil.parser
 
 from django.utils import timezone
 
-from tasks.models import Task
+from .models import Task
 
 
 class TaskService:
@@ -23,7 +22,7 @@ class TaskService:
             category.save()
 
     @classmethod
-    def check_task_status(cls, task_dict):
+    def check_task_status(cls, task_dict, dateutil=None):
         task = Task.objects.filter(id=task_dict.get('id')).first()
         difference = timezone.now() - dateutil.parser.parse(task_dict.get('deadline'))
 

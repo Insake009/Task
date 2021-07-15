@@ -109,3 +109,7 @@ static/
 *.pyc
 *.db
 *.pid
+
+venv
+db.sqlite3
+venv/
